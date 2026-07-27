@@ -46,4 +46,4 @@ jobs:
         run: |
           kustomize_version=$(kustomize version)
           kustomize edit set image backend=$ECR_REGISTRY/mp-backend:$IMAGE_TAG
-          kustomize build | kubectl apply -f -
+          kustomize build --load-restrictor LoadRestrictionsNone | kubectl apply -f -
