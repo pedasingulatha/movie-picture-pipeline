@@ -44,6 +44,6 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         working-directory: starter/backend/k8s
         run: |
-          kustomize_version=$(kustomize version)
-          kustomize edit set image backend=$ECR_REGISTRY/mp-backend:$IMAGE_TAG
-          kustomize build --load-restrictor LoadRestrictionsNone | kubectl apply -f -
+          echo "Updating image tag in deployment.yaml..."
+          sed -i "s|image:.*|image: $ECR_REGISTRY/mp-backend:$IMAGE_TAG|g" deployment.yaml
+          kubectl apply -f .
