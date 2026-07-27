@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
     paths:
-      - 'backend/**'
+      - 'starter/backend/**'
   workflow_dispatch:
 
 jobs:
@@ -12,19 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: starter/backend
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+
       - name: Install Pipenv
         run: pip install pipenv
+
       - name: Install dependencies
         run: pipenv install --dev
+
       - name: Run linter
         run: pipenv run lint
+
       - name: Run tests
         run: pipenv run test
 
@@ -33,8 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: starter/backend
     steps:
       - uses: actions/checkout@v3
+
       - name: Build Docker image
         run: docker build --tag mp-backend:latest .
