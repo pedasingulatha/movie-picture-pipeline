@@ -28,7 +28,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: mp-backend
           IMAGE_TAG: ${{ github.sha }}
-        working-directory: backend
+        working-directory: starter/backend
         
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
@@ -42,7 +42,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
-        working-directory: backend/k8s
+        working-directory: starter/backend/k8s
         run: |
           kustomize_version=$(kustomize version)
           kustomize edit set image backend=$ECR_REGISTRY/mp-backend:$IMAGE_TAG
