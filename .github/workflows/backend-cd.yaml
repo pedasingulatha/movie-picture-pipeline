@@ -44,5 +44,6 @@ jobs:
         working-directory: starter/backend/k8s
         run: |
           echo "Updating image in deployment.yaml..."
-          sed -i "s|image:.*|image: $ECR_REGISTRY/backend:$IMAGE_TAG|g" deployment.yaml   # <--- mp-backend nunchi backend ki marchamu
-          kubectl apply -f .
+          sed -i "s|image:.*|image: $ECR_REGISTRY/backend:$IMAGE_TAG|g" deployment.yaml
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
