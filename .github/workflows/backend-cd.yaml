@@ -85,4 +85,5 @@ jobs:
       - name: Deploy to EKS
         run: |
           aws eks update-kubeconfig --name cluster --region us-east-1
-          kubectl apply -f k8s/
+          kubectl apply -k k8s/
+          
