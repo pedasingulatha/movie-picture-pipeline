@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  labels:
-    app: backend
 spec:
   replicas: 1
   selector:
@@ -15,7 +13,10 @@ spec:
         app: backend
     spec:
       containers:
-        - name: backend
-          image: backend
-          ports:
-            - containerPort: 5000
+      - name: backend
+        image: 730454764993.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        command: ["uwsgi"]
+        args: ["--http", "0.0.0.0:5000", "--wsgi-file", "app.py", "--callable", "app"]
